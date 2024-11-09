@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Location via SMS</title>
+</head>
+<body>
+    <h1>Enter Mobile Number to Request Location</h1>
+    <form id="locationForm">
+        <input type="text" id="phoneNumber" placeholder="Enter mobile number" required>
+        <button type="submit">Send SMS</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+        document.getElementById('locationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const phoneNumber = document.getElementById('phoneNumber').value;
+
+            fetch('/send-sms', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ phoneNumber: phoneNumber }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').textContent = data.message;
+            })
+            .catch(error => {
+                document.getElementById('message').textContent = 'Error sending SMS.';
+            });
+        });
+    </script>
+</body>
+</html>
