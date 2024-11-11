@@ -26,7 +26,7 @@ app.post('/send-sms', (req, res) => {
         return res.status(400).json({ message: 'Invalid phone number format.' });
     }
 
-    const locationRequestLink = `http://localhost:3000/request-location?phone=${encodeURIComponent(phoneNumber)}`;
+    const locationRequestLink = `https://seproject1234.netlify.app/request-location?phone=${encodeURIComponent(phoneNumber)}`;
 
     client.messages.create({
         body: `Please share your location: ${locationRequestLink}`,
